@@ -8,19 +8,24 @@ module octree
   public octree_init
   public octree_final
   public octree_build
+  public octree_update
   public octree_search
 
   type config_type
-    integer max_num_point
-    integer max_depth
+    integer max_num_point ! Maximum point number contained in leaf node.
+    integer max_depth     ! Maximum level of branch and leaf nodes
     real(8) bbox(2, 3)
   end type config_type
 
+  ! Points should be indexed by their id.
   type point_type
     integer id
     real(8) x(3)
   end type point_type
 
+  ! There are two kinds of nodes:
+  !   1. Branch node with children;
+  !   2. Leaf node without child but containing points.
   type node_type
     integer depth
     real(8) bbox(2, 3)
@@ -124,11 +129,15 @@ contains
       call octree_build(contained_points, node%children(i))
     end do
 
-    if (node%depth == 1) then
-      call print_tree(tree%root_node)
-    end if
+    ! if (node%depth == 1) then
+    !   call print_tree(tree%root_node)
+    ! end if
 
   end subroutine octree_build
+
+  subroutine octree_update()
+
+  end subroutine octree_update
 
   recursive subroutine octree_search(x, distance, num_ngb_point, ngb_ids, node_)
 
@@ -188,7 +197,7 @@ contains
     type(node_type), intent(inout) :: node
 
     node%num_point = 0
-    allocate(node%point_ids(config%max_num_point))
+    if (.not. allocated(node%point_ids)) allocate(node%point_ids(config%max_num_point))
     nullify(node%parent)
     if (size(node%children) == 8) deallocate(node%children)
     nullify(node%children)

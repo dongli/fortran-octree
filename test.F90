@@ -36,8 +36,7 @@ program test_octree
   num_ngb = 0
   allocate(ngb_ids(200))
   call octree_search(x, 0.1d0, num_ngb, ngb_ids)
-  print *, num_ngb
-  print *, ngb_ids(1:num_ngb)
+  print *, 'Neighbors of point', x
   do i = 1, num_ngb
     dx(:) = x(:) - points(ngb_ids(i))%x(:)
     print *, ngb_ids(i), sqrt(dot_product(dx, dx))
