@@ -123,6 +123,8 @@ contains
       j = j + 1
     end do
 
+    if (num_contained_point == 0) return
+
     ! Subdivide node and run into the child nodes.
     call subdivide_node(node)
     do i = 1, 8
@@ -135,7 +137,17 @@ contains
 
   end subroutine octree_build
 
-  subroutine octree_update()
+  subroutine octree_update(node_)
+
+    type(node_type), intent(inout), target, optional :: node_
+
+    type(node_type), pointer :: node
+
+    if (present(node_)) then
+      node => node_
+    else
+      node => tree%root_node
+    end if
 
   end subroutine octree_update
 
