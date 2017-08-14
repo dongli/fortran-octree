@@ -160,7 +160,7 @@ contains
     type(node_type), intent(in), target, optional :: node_
 
     type(node_type), pointer :: node
-    real(8) d2, db(6), dx(3)
+    real(8) d2, dx(3)
     integer i
 
     if (present(node_)) then

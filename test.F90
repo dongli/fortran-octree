@@ -32,15 +32,25 @@ program test_octree
 
   call octree_build(points)
 
-  x = points(size(points) / 2)%x
-  num_ngb = 0
-  allocate(ngb_ids(200))
-  call octree_search(x, 0.1d0, num_ngb, ngb_ids)
-  print *, 'Neighbors of point', x
-  do i = 1, num_ngb
-    dx(:) = x(:) - points(ngb_ids(i))%x(:)
-    print *, ngb_ids(i), sqrt(dot_product(dx, dx))
+  allocate(ngb_ids(400))
+
+  !x = points(size(points) / 2)%x
+  !num_ngb = 0
+  !call octree_search(x, 0.1d0, num_ngb, ngb_ids)
+  !print *, 'Neighbors of point', x
+  !do i = 1, num_ngb
+  !  dx(:) = x(:) - points(ngb_ids(i))%x(:)
+  !  print *, ngb_ids(i), sqrt(dot_product(dx, dx))
+  !end do
+
+!$OMP PARALLEL DO
+  do i = 1, size(points)
+    !print *, 'Check neighbors of point ', i
+    num_ngb = 0
+    call octree_search(points(i)%x, 0.05d0, num_ngb, ngb_ids)
+    !print *, 'Found ', num_ngb, ' neighbors'
   end do
+!$OMP END PARALLEL DO
 
   call octree_final()
 
