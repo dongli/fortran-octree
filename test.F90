@@ -34,15 +34,6 @@ program test_octree
 
   allocate(ngb_ids(400))
 
-  !x = points(size(points) / 2)%x
-  !num_ngb = 0
-  !call octree_search(x, 0.1d0, num_ngb, ngb_ids)
-  !print *, 'Neighbors of point', x
-  !do i = 1, num_ngb
-  !  dx(:) = x(:) - points(ngb_ids(i))%x(:)
-  !  print *, ngb_ids(i), sqrt(dot_product(dx, dx))
-  !end do
-
 !$OMP PARALLEL DO
   do i = 1, size(points)
     !print *, 'Check neighbors of point ', i

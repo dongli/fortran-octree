@@ -1,5 +1,5 @@
 FC = gfortran
-FFLAGS = -O3 -fopenmp
+FFLAGS = -O3 #-fopenmp
 
 %.o: %.F90
 	$(FC) $(FFLAGS) -c $<
