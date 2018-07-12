@@ -172,15 +172,12 @@ contains
     if (associated(node%children)) then
       ! We are at branch node.
       do i = 1, 8
-        if ((x(1) >= node%children(i)%bbox(1, 1) .and. x(1) <= node%children(i)%bbox(2, 1) .and. &
-             x(2) >= node%children(i)%bbox(1, 2) .and. x(2) <= node%children(i)%bbox(2, 2) .and. &
-             x(3) >= node%children(i)%bbox(1, 3) .and. x(3) <= node%children(i)%bbox(2, 3)) .or. &
-           (abs(x(1) - node%children(i)%bbox(1, 1)) < distance .or. &
-            abs(x(1) - node%children(i)%bbox(2, 1)) < distance .or. &
-            abs(x(2) - node%children(i)%bbox(1, 2)) < distance .or. &
-            abs(x(2) - node%children(i)%bbox(2, 2)) < distance .or. &
-            abs(x(3) - node%children(i)%bbox(1, 3)) < distance .or. &
-            abs(x(3) - node%children(i)%bbox(2, 3)) < distance)) then
+        if ((x(1) + distance) > node%children(i)%bbox(1,1) .and. &
+            (x(1) - distance) < node%children(i)%bbox(2,1) .and. &
+            (x(2) + distance) > node%children(i)%bbox(1,2) .and. &
+            (x(2) - distance) < node%children(i)%bbox(2,2) .and. &
+            (x(3) + distance) > node%children(i)%bbox(1,3) .and. &
+            (x(3) - distance) < node%children(i)%bbox(2,3)) then
           call octree_search(x, distance, num_ngb_point, ngb_ids, node%children(i))
         end if
       end do
