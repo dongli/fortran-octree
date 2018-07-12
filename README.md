@@ -1,8 +1,11 @@
-# fortran-octree
-A Fortran octree implementation
+# Fortran octree
+A Fortran octree implementation.
 
 # Test
-Run `make` to build a `test` executable, then run
+
 ```
-$ ./test [point number, default is 100]
+$ mkdir build && cd build
+$ cmake ..
+$ make
+$ ./octree_test [point number, default is 100]
 ```
