@@ -32,7 +32,7 @@ program test_octree
 
   call octree_build(points)
 
-  allocate(ngb_ids(400))
+  allocate(ngb_ids(500))
 
 !$OMP PARALLEL DO
   do i = 1, size(points)
