@@ -1,6 +1,6 @@
 program test_octree
 
-  use octree
+  use octree_mod
 
   type(point_type), allocatable :: points(:)
   integer i, num_seed, num_ngb

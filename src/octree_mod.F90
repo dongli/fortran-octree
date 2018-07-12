@@ -1,4 +1,4 @@
-module octree
+module octree_mod
 
   implicit none
 
@@ -297,4 +297,4 @@ contains
 
   end subroutine print_tree
 
-end module octree
+end module octree_mod
